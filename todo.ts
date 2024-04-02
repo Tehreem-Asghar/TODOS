@@ -16,9 +16,17 @@ async function todoApp() {
       message: chalk.magenta(
         "What do you want to add in your todo list? enter pleas."
       ),
+      validate: function (input) {
+        if (!input.trim()) {
+          return "Please enter a valid todo item.";
+        }
+        return true;
+      },
     },
   ]);
-
+  if (add.Add == "") {
+    console.log("please enter");
+  }
   storeData.push(add.Add);
   console.log(
     chalk.green(storeData),
@@ -43,6 +51,12 @@ async function todoApp() {
         name: "add",
         type: "input",
         message: chalk.blue("Add Item..."),
+        validate: function (input) {
+          if (!input.trim()) {
+            return "Please enter a valid todo item.";
+          }
+          return true;
+        },
       },
     ]);
     storeData.push(Add.add);
@@ -130,6 +144,11 @@ async function todoApp() {
   ]);
   if (Another.Again === "Yes") {
     todoApp();
+  } else {
+    console.log(chalk.yellow.bold("your todo list is here."));
+    for (let item of storeData) {
+      console.log(chalk.red.bold(item));
+    }
   }
 }
 todoApp();
